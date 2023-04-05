@@ -51,19 +51,21 @@ class PerpustakaanController extends Controller
 
         Perpustakaan::create($request->all());
 
-        return redirect()->route('perpustakaans.index' )->with('Berhasil', 'Data Berhasil Ditambahkan');
+        return redirect()->route('perpustakaans.index')->with('Berhasil', 'Data Berhasil Ditambahkan');
     }
 
     public function show($kode_bukuu)
     {
-        $Perpustakaan = Perpustakaan::find($kode_bukuu);
-        return view('perpustakaans.detail', compact('Perpustakaan'));
+        $user = Auth::user();
+        $perpustakaans1 = Perpustakaan::find($kode_bukuu);
+        return view('perpustakaans.detail' , ['user'=>$user], compact('perpustakaans1'));
     }
 
     public function edit($kode_bukuu)
     {
+        $user = Auth::user();
         $Perpustakaan = Perpustakaan::find($kode_bukuu);
-        return view('perpustakaans.detail', compact('Perpustakaan'));
+        return view('perpustakaans.detail', ['user'=>$user], compact('Perpustakaan'));
     }
 
     public function update(Request $request, $kode_bukuu)
